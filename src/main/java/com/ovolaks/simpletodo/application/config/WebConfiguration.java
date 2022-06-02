@@ -1,5 +1,6 @@
 package com.ovolaks.simpletodo.application.config;
 
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +37,11 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry
                 .addResourceHandler("/")
                 .addResourceLocations("classpath:/templates/resources/");
+    }
+
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
     }
 
 }

@@ -21,7 +21,7 @@ public class UserManager implements UserDetailsManager {
 
     @Override
     public void createUser(UserDetails user) {
-
+        userRepository.save((User) user);
     }
 
     @Override
