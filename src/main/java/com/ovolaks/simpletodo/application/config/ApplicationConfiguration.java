@@ -1,4 +1,4 @@
-package com.ovolaks.simpletodo.config;
+package com.ovolaks.simpletodo.application.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
