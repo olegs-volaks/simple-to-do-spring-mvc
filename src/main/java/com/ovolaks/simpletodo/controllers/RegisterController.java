@@ -1,6 +1,7 @@
 package com.ovolaks.simpletodo.controllers;
 
 import com.ovolaks.simpletodo.application.dto.user.CreateUserDto;
+import com.ovolaks.simpletodo.application.services.authentication.AuthenticationFacade;
 import com.ovolaks.simpletodo.application.services.user.CreateUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,14 @@ public class RegisterController {
     @Autowired
     private CreateUserService createUserService;
 
+    @Autowired
+    private AuthenticationFacade authenticationFacade;
+
     @GetMapping("/register")
     public String index(CreateUserDto createUserDto) {
-
+        if (authenticationFacade.isAuthenticated()) {
+            return "redirect:/";
+        }
         return "/register/register";
     }
 

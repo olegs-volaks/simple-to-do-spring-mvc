@@ -45,18 +45,24 @@
                            th:classappend="${#fields.hasErrors('password')} ? is-invalid : ''">
                     <label th:if="${#fields.hasErrors('password')}" for="passwordInput" th:errors="*{password}">Confirm
                         password</label>
-                    <label th:unless="${#fields.hasErrors('password')}" for="passwordInput">Confirm password</label>
+                    <label th:unless="${#fields.hasErrors('password')}" for="passwordInput">Password</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" th:field="*{passwordConform}" name="passwordConform"
+                    <input type="password" class="form-control" th:field="*{passwordConfirm}" name="passwordConfirm"
                            id="passwordConfirmInput"
                            placeholder="Password Confirm"
-                           th:classappend="${#fields.hasErrors('passwordConform')} ? is-invalid : ''">
-                    <label th:if="${#fields.hasErrors('passwordConform')}" for="passwordConfirmInput"
-                           th:errors="*{passwordConform}">Confirm password</label>
-                    <label th:unless="${#fields.hasErrors('passwordConform')}" for="passwordConfirmInput">Confirm
+                           th:classappend="${#fields.hasErrors('passwordConfirm') or #fields.hasErrors('confirmPasswords')} ? is-invalid : ''">
+
+                    <div th:if="${#fields.hasErrors('confirmPasswords')}" th:errors="*{confirmPasswords}"
+                         class="invalid-feedback"></div>
+
+                    <label th:if="${#fields.hasErrors('passwordConfirm')}" for="passwordConfirmInput"
+                           th:errors="*{passwordConfirm}">Confirm password</label>
+
+                    <label th:unless="${#fields.hasErrors('passwordConfirm')}" for="passwordConfirmInput">Confirm
                         password</label>
+
                 </div>
                 <div class="d-grid gap-2 mb-3">
                     <button type="submit" class="btn btn-outline-dark btn-lg">Register</button>

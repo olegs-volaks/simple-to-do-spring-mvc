@@ -5,12 +5,16 @@
 <body>
 <div layout:fragment="content">
 
-    <div class="clearfix border-bottom mb-4">
-        <h1 class="display-3 float-start">Tasks</h1>
-        <a href="/task/new" class="btn btn-outline-dark btn-lg float-end"><i class="fa-solid fa-plus"></i></a>
-    </div>
-    <table class="table table-dark table-hover">
-        <thead>
+    <h1 class="display-4 border-bottom mb-4 pb-2">
+        Tasks
+        <div class="float-end d-inline-block">
+            <a href="/task/new" class="btn btn-outline-dark btn-lg"><i
+                    class="fa-solid fa-plus"></i></a>
+        </div>
+    </h1>
+
+    <table class="table table-hover">
+        <thead class="table-dark">
         <tr>
             <th>id</th>
             <th>Title</th>
@@ -23,15 +27,25 @@
         <tr th:if="${tasks.empty}">
             <td colspan="5"> No Tasks Available</td>
         </tr>
-        <tr th:each="task : ${tasks}">
+        <tr th:each="task : ${tasks}" th:classappend="${task.completed} ? 'table-success' : ''">
             <td><span th:text="${task.id}"></span></td>
             <td><span th:text="${task.name}"></span></td>
             <td><span th:text="${task.description}"></span></td>
-            <td><span th:text="${task.completed}"></span></td>
+            <td>
+                <span class="badge" th:classappend="${task.completed} ? 'bg-success' : 'bg-danger'">
+                <i class="fa-solid" th:classappend="${task.completed} ? 'fa-check' : 'fa-xmark'"></i>
+                </span>
+            </td>
             <td>
                 <div class="btn-group float-end">
-                    <a th:href="@{|/task/${task.id}/edit|}" class="btn btn-primary btn-sm"><i
-                            class="fa-solid fa-pen-to-square"></i></a>
+                    <a th:unless="${task.completed}" th:href="@{|/task/${task.id}/complete|}"
+                       class="btn btn-success btn-sm">
+                        <i class="fa-solid fa-check"></i></a>
+                    <a th:unless="${task.completed}" th:href="@{|/task/${task.id}/edit|}"
+                       class="btn btn-primary btn-sm">
+                        <i class="fa-solid fa-pen-to-square"></i></a>
+                    <a th:href="@{|/task/${task.id}/delete|}" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-trash"></i></a>
                 </div>
             </td>
         </tr>

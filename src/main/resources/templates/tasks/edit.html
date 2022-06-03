@@ -6,13 +6,13 @@
 <div layout:fragment="content">
 
     <h1 class="display-4 border-bottom mb-4 pb-2">
-        New task
+        Edit task
         <div class="float-end d-inline-block">
             <a href="/" class="btn btn-outline-dark btn-lg">Back</a>
         </div>
     </h1>
 
-    <form th:action="@{/task/new}" th:object="${createTaskDto}" method="post">
+    <form th:action="@{|/task/${taskDto.id}/edit|}" th:object="${taskDto}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
         <div class="mb-3 row">

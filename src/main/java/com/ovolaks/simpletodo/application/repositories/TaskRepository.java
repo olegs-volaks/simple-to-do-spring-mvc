@@ -16,4 +16,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     int updateCompletedById(boolean completed, Long id);
 
     List<Task> findAllByOrderByIdDesc();
+
 }

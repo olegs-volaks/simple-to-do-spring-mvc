@@ -7,17 +7,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.TYPE})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {ConfirmValidator.class})
-public @interface Confirm {
+@Constraint(validatedBy = {UsernameUniqValidator.class})
+public @interface UsernameUniq {
 
-    String baseField();
-
-    String confirmFiled();
-
-
-    String message() default "Not confirm";
+    String message() default "Username already taken!";
 
     Class<?>[] groups() default {};
 
