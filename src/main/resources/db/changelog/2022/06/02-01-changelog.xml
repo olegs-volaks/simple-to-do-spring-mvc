@@ -23,7 +23,7 @@
             <column name="name" type="VARCHAR(255)"/>
         </createTable>
         <createTable tableName="users_roles">
-            <column name="id" type="BIGINT">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" nullable="false" primaryKeyName="pk_users_roles"/>
             </column>
             <column name="role_id" type="BIGINT">

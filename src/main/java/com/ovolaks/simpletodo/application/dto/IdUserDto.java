@@ -9,11 +9,6 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto implements Serializable {
+public class IdUserDto implements Serializable {
     private Long id;
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
 }
