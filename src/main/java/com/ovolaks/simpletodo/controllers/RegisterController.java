@@ -1,6 +1,6 @@
 package com.ovolaks.simpletodo.controllers;
 
-import com.ovolaks.simpletodo.application.dto.CreateUserDto;
+import com.ovolaks.simpletodo.application.dto.user.CreateUserDto;
 import com.ovolaks.simpletodo.application.services.user.CreateUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

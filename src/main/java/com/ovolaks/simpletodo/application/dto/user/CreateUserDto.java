@@ -1,4 +1,4 @@
-package com.ovolaks.simpletodo.application.dto;
+package com.ovolaks.simpletodo.application.dto.user;
 
 import com.ovolaks.simpletodo.application.validators.Confirm;
 import lombok.AllArgsConstructor;

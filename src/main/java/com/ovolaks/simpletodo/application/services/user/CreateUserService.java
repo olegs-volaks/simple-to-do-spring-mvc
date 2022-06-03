@@ -1,6 +1,6 @@
 package com.ovolaks.simpletodo.application.services.user;
 
-import com.ovolaks.simpletodo.application.dto.CreateUserDto;
+import com.ovolaks.simpletodo.application.dto.user.CreateUserDto;
 import com.ovolaks.simpletodo.application.entities.Role;
 import com.ovolaks.simpletodo.application.entities.User;
 import com.ovolaks.simpletodo.application.repositories.RoleRepository;

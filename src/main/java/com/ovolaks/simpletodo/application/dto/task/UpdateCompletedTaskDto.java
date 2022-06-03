@@ -1,4 +1,4 @@
-package com.ovolaks.simpletodo.application.dto;
+package com.ovolaks.simpletodo.application.dto.task;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class IdUserDto implements Serializable {
+public class UpdateCompletedTaskDto implements Serializable {
     private Long id;
+    private boolean completed;
 }
