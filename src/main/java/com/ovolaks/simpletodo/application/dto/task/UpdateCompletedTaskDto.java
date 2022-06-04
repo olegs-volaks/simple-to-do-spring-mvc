@@ -12,4 +12,5 @@ import java.io.Serializable;
 public class UpdateCompletedTaskDto implements Serializable {
     private Long id;
     private boolean completed;
+    private Long userId;
 }

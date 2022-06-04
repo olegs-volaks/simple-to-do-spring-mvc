@@ -32,6 +32,10 @@ public class Task {
     @Column(name = "completed")
     private boolean completed;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

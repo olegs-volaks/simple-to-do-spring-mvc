@@ -1,11 +1,10 @@
 package com.ovolaks.simpletodo.controllers;
 
-import com.ovolaks.simpletodo.application.dto.task.CreateTaskDto;
-import com.ovolaks.simpletodo.application.dto.task.IdTaskDto;
-import com.ovolaks.simpletodo.application.dto.task.TaskDto;
-import com.ovolaks.simpletodo.application.dto.task.UpdateCompletedTaskDto;
+import com.ovolaks.simpletodo.application.dto.task.*;
+import com.ovolaks.simpletodo.application.entities.User;
 import com.ovolaks.simpletodo.application.services.task.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,8 +31,9 @@ public class TasksController {
     private DeleteTaskService deleteTaskService;
 
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("tasks", getTasksService.execute());
+    public String index(@AuthenticationPrincipal User currentUser, Model model) {
+        AllTaskDto request = new AllTaskDto(currentUser.getId());
+        model.addAttribute("tasks", getTasksService.execute(request));
         return "/tasks/index";
     }
 
@@ -43,46 +43,50 @@ public class TasksController {
     }
 
     @PostMapping("/task/new")
-    public String createTask(@Valid CreateTaskDto createTaskDto, BindingResult bindingResult) {
+    public String createTask(@AuthenticationPrincipal User currentUser, @Valid CreateTaskDto createTaskDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/tasks/new";
         }
+        createTaskDto.setUserId(currentUser.getId());
         createTaskService.execute(createTaskDto);
         return "redirect:/";
     }
 
     @GetMapping("/task/{id}/edit")
-    public String editTask(@PathVariable long id, TaskDto taskDto) {
-        TaskDto dto = getTaskService.execute(id);
-        if (dto.getId() == null) {
+    public String editTask(@AuthenticationPrincipal User currentUser, @PathVariable long id, TaskDto taskDto) {
+        TaskDto response = getTaskService.execute(new IdTaskDto(id, currentUser.getId()));
+        if (response.getId() == null) {
             return "redirect:/";
         }
-        taskDto.setId(dto.getId());
-        taskDto.setName(dto.getName());
-        taskDto.setDescription(dto.getDescription());
+        taskDto.setId(response.getId());
+        taskDto.setName(response.getName());
+        taskDto.setDescription(response.getDescription());
         taskDto.setCompleted(taskDto.isCompleted());
         return "/tasks/edit";
     }
 
     @PostMapping("/task/{id}/edit")
-    public String update(@PathVariable long id, @Valid TaskDto taskDto, BindingResult bindingResult) {
+    public String update(@AuthenticationPrincipal User currentUser, @PathVariable long id, @Valid TaskDto taskDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/tasks/edit";
         }
         taskDto.setId(id);
+        taskDto.setUserId(currentUser.getId());
         updateTaskService.execute(taskDto);
         return "redirect:/";
     }
 
     @GetMapping("/task/{id}/complete")
-    public String complete(@PathVariable long id) {
-        updateTaskCompetedService.execute(new UpdateCompletedTaskDto(id, true));
+    public String complete(@AuthenticationPrincipal User currentUser, @PathVariable long id) {
+        UpdateCompletedTaskDto request = new UpdateCompletedTaskDto(id, true, currentUser.getId());
+        updateTaskCompetedService.execute(request);
         return "redirect:/";
     }
 
     @GetMapping("/task/{id}/delete")
-    public String delete(@PathVariable long id) {
-        deleteTaskService.execute(new IdTaskDto(id));
+    public String delete(@AuthenticationPrincipal User currentUser, @PathVariable long id) {
+        IdTaskDto request = new IdTaskDto(id, currentUser.getId());
+        deleteTaskService.execute(request);
         return "redirect:/";
     }
 }

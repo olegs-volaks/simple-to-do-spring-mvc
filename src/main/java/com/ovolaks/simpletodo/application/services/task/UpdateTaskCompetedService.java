@@ -17,7 +17,7 @@ public class UpdateTaskCompetedService {
 
     @Transactional
     public void execute(UpdateCompletedTaskDto updateCompletedTaskDto) {
-        Optional<Task> taskOptional = taskRepository.findById(updateCompletedTaskDto.getId());
+        Optional<Task> taskOptional = taskRepository.findByIdAndUser_Id(updateCompletedTaskDto.getId(), updateCompletedTaskDto.getUserId());
         taskOptional.ifPresent(task -> task.setCompleted(updateCompletedTaskDto.isCompleted()));
     }
 }

@@ -17,7 +17,7 @@ public class UpdateTaskService {
 
     @Transactional
     public void execute(TaskDto taskDto) {
-        Optional<Task> taskOptional = taskRepository.findById(taskDto.getId());
+        Optional<Task> taskOptional = taskRepository.findByIdAndUser_Id(taskDto.getId(), taskDto.getUserId());
         if (taskOptional.isPresent()) {
             Task task = taskOptional.get();
             task.setName(taskDto.getName());

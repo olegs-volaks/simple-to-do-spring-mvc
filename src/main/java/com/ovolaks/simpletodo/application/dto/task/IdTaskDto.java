@@ -11,4 +11,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class IdTaskDto implements Serializable {
     private Long id;
+    private Long userId;
 }

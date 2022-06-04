@@ -47,6 +47,10 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @ToString.Exclude
+    private Set<Task> tasks = new LinkedHashSet<>();
+
     public Long getId() {
         return id;
     }

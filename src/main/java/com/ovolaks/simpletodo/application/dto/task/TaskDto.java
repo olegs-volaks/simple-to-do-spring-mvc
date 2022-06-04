@@ -17,4 +17,5 @@ public class TaskDto implements Serializable {
     private String name;
     private String description;
     private boolean completed;
+    private Long userId;
 }
